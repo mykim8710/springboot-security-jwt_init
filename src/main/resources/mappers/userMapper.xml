@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.jwtdemo.user.repository.UserRepository">
+   <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+               USER(username,
+                    password)
+             VALUES(#{username},
+                    #{password})
+    </insert>
+
+    <insert id="insertUserAuthority" parameterType="UserAuthority">
+        INSERT INTO
+        USER_AUTHORITY(USER_ID,
+                       AUTHORITY_ID)
+                VALUES(#{userId},
+                       #{authorityId})
+    </insert>
+
+    <select id="findUserByUsername" parameterType="String" resultType="User">
+        SELECT USER.id AS id,
+               USER.username AS username,
+               USER.password AS password,
+               GROUP_CONCAT(AUTHORITY.authority_name SEPARATOR ',') AS authorityNames
+          FROM USER AS USER
+     LEFT JOIN USER_AUTHORITY AS USER_AUTHORITY ON USER.id = USER_AUTHORITY.user_id
+     LEFT JOIN AUTHORITY      AS AUTHORITY      ON USER_AUTHORITY.authority_id = AUTHORITY.id
+         WHERE USER.username = #{username}
+      GROUP BY id
+    </select>
+
+
+
+</mapper>
