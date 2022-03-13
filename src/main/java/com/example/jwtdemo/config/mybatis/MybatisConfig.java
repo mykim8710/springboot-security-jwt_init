@@ -19,8 +19,8 @@ public class MybatisConfig {
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 
         sqlSessionFactory.setDataSource(dataSource);
-        sqlSessionFactory.setTypeAliasesPackage("com.example.jwtdemo.**.model"); 											// 프로젝트 패키지 내의 모든 Domain class 경로설정
-        sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("mappers/**/*.xml"));	// mapper.xml(SQL Query)파일들의 경로설정
+        sqlSessionFactory.setTypeAliasesPackage("com.example.jwtdemo.**.domain"); 											// 프로젝트 패키지 내의 모든 Domain class 경로설정
+        sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("mappers/*.xml"));	// mapper.xml(SQL Query)파일들의 경로설정
         sqlSessionFactory.setVfs(SpringBootVFS.class);
         return sqlSessionFactory.getObject();
     }

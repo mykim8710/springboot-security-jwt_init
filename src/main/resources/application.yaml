@@ -1,35 +1,13 @@
 server:
-  port: 9091
----
+  port: 9092
 
+---
 spring:
-  # DB(MySQL) DataSource
+  # DB DataSource 설정
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/jwtDemo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true&autoReconnection=true&allowMultiQueries=true&serverTimezone=Asia/Seoul
+    # MYSQL
+    # url: jdbc:mysql://127.0.0.1:3306/jwtDemo
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://127.0.0.1:3306/jwtDemo
     username: root
     password: kmy5708!@#
-
-  # view Template Engine ?? > Thymeleaf
-  thymeleaf:
-    #mode: HTML
-    #encoding: UTF-8
-    #check-template-location: true
-    prefix: classpath:/templates/
-    suffix: .html
-    cache: false   #(dev : false, real : true)
-
-  # static resource(build Automatic)
-  devtools:
-    livereload:
-      enabled: true
----
-
-# JWT Secret Key, JWT Token expire(1day >> 86400000ms)
-jwt:
-  demo:
-    secretKey: ThisIsJwtDemoSecretKey
-    expirationMs: 86400000
-
-
-
