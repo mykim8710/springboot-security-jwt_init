@@ -1,5 +1,4 @@
-# Springboot + Spring security + JWT
-
+# Springboot + Spring security + JWT init
 
 ** 기존 session 방식 인증
 1. username, password 로그인 정상
