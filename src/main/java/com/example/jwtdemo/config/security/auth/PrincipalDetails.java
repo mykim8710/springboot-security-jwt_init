@@ -12,11 +12,11 @@ import java.util.Collection;
 
 @Getter
 @ToString
-public class PrincipalDetail implements UserDetails {
+public class PrincipalDetails implements UserDetails {
     private User user;
 
     @Builder
-    public PrincipalDetail(User user) {
+    public PrincipalDetails(User user) {
         this.user = user;
     }
 

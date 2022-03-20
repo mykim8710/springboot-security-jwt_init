@@ -23,7 +23,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 
         User userDomain = userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
 
-        return PrincipalDetail.builder()
+        return PrincipalDetails.builder()
                                 .user(userDomain)
                                 .build();
     }

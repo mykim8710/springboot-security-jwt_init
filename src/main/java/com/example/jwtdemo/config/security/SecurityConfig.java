@@ -1,6 +1,8 @@
 package com.example.jwtdemo.config.security;
 
 import com.example.jwtdemo.config.security.jwt.JwtAuthenticationFilter;
+import com.example.jwtdemo.config.security.jwt.JwtAuthorizationFilter;
+import com.example.jwtdemo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity // Spring Security를 활성화한다는 의미의 @annotation
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final UserRepository userRepository;
+
     //private final CorsConfig corsConfig;
 
     // 인증을 무시할 경로들을 설정 >> static resource 보안설정
@@ -55,6 +59,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // /login 요청해서 username, password를 post로 전송하면 => UsernamePasswordAuthenticationFilter가 동작
         // 하지만 securityConfig에서 formLogin을 disable했기 때문에 동작하지않는다
         // JwtAuthenticationFilter를 다시 securityConfig에 등록해줘야 작동한다.
+
+        httpSecurity.addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository));   // AuthenticationManager
+
+
 
 
         httpSecurity
