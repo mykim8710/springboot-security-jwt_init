@@ -1,11 +1,13 @@
 package com.example.jwtdemo.user.contoller;
 
+import com.example.jwtdemo.config.security.auth.PrincipalDetails;
 import com.example.jwtdemo.user.dto.request.RequestUserJoinDto;
 import com.example.jwtdemo.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,13 +37,17 @@ public class UserApiController {
 
     // user, admin 권한 모두 접근 가능
     @GetMapping("/api/user")
-    public String userAPI() {
+    public String userAPI(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        log.info("[GET] /api/user => user, admin api");
+        log.info("PrincipalDetails > " +principalDetails);
         return "user";
     }
 
     // admin 권한만 접근가능
     @GetMapping("/api/admin")
-    public String adminAPI() {
+    public String adminAPI(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        log.info("[GET] /api/admin => only admin api");
+        log.info("PrincipalDetails > " +principalDetails);
         return "admin";
     }
 

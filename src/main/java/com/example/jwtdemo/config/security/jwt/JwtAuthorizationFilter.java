@@ -37,7 +37,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     // 인증이나 권한이 필요한 api요청이 있을때 해당 필터를 타게됨
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        super.doFilterInternal(request, response, chain);
         log.info("인증이나 권한이 필요한 주소요청이 됨");
 
         String jwtHeader = request.getHeader("Authorization");
@@ -67,6 +66,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             PrincipalDetails principalDetails = PrincipalDetails.builder()
                                                                     .user(userDomain)
                                                                     .build();
+            log.info("principalDetails > " +principalDetails);
+
 
             // jwt Token 서명을 통해서 서명이 정상이면 Authentication 객체를 만들어 준다.
             Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
